@@ -148,15 +148,20 @@ print("Connected to: ", host)
 
 key = get_random_bytes(16) # zero_bytes(keysize)
 nonce = get_random_bytes(16)      # zero_bytes(16)
+s.send(key)
+print(key)
+s.send(nonce)
+print(nonce)
 
 associated_data = input("Enter the associated data: ")
 associateddata = associated_data.encode('utf-8')
+s.send(associateddata)
+print(associateddata)
+
 plain_text = input("Enter the plain text: ")
 plaintext = plain_text.encode('utf-8')
 
 ciphertext = ascon_encrypt(key, nonce, associateddata, plaintext,  "Ascon-128")
-s.send(key)
-s.send(nonce)
-s.send(associateddata)
 s.send(ciphertext)
+print(ciphertext)
     
